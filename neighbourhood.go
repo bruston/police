@@ -25,18 +25,19 @@ type Link struct {
 }
 
 type Center struct {
-	Latitutde string `json:"latitude"`
-	Longitude string `json:"longitude"`
+	Latitutde float64 `json:"latitude,string"`
+	Longitude float64 `json:"longitude, string"`
 }
 
 type Locations struct {
-	Name        string `json:"name"`
-	Longitude   string `json:"longitude"`
-	Postcode    string `json:"postcode"`
-	Address     string `json:"address"`
-	Telephone   string `json:"telephone"`
-	Type        string `json:"type"`
-	Description string `json:"description"`
+	Name        string  `json:"name"`
+	Longitude   float64 `json:"longitude,string"`
+	Latitude    float64 `json:"latitude,string"`
+	Postcode    string  `json:"postcode"`
+	Address     string  `json:"address"`
+	Telephone   string  `json:"telephone"`
+	Type        string  `json:"type"`
+	Description string  `json:"description"`
 }
 
 func (c Client) Neighbourhoods(location string) ([]Neighbourhoods, error) {
