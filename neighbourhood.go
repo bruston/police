@@ -55,7 +55,3 @@ func (c Client) Neighbourhood(location, id string) (Neighbourhood, error) {
 	}
 	return neighbourhood, nil
 }
-
-func (n Neighbourhoods) Information() (Neighbourhood, error) {
-	return Neighbourhood{}, nil
-}
