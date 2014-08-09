@@ -32,8 +32,11 @@ type OutcomeStatus struct {
 	Date     string `json:"date"`
 }
 
-func (c Client) StreetCrime(lat, long string, date string) ([]Crime, error) {
-	url := fmt.Sprintf("crimes-street/all-crime?lat=%s&lng=%s&date=%s", lat, long, date)
+func (c Client) StreetCrime(lat, long float64, date string, category string) ([]Crime, error) {
+	if category == "" {
+		category = "all-crime"
+	}
+	url := fmt.Sprintf("crimes-street/%s?lat=%d&lng=%d&date=%s", category, lat, long, date)
 	var crimes []Crime
 	if err := c.decodeJSONResponse(url, &crimes); err != nil {
 		return nil, err
