@@ -27,13 +27,7 @@ func TestPeople(t *testing.T) {
 	p := Client{baseURL: server.URL + "/"}
 	people, err := p.People("leicestershire")
 	if err != nil {
-		t.Error(err)
-	}
-	if len(people) != 1 {
-		t.Errorf("expecting people slice to be of length 1 but it was %d", len(people))
-	}
-	if people[0].Contact.Twitter == "" {
-		t.Errorf("expecting twitter contact but it was not found")
+		t.Fatal(err)
 	}
 	expected := Person{Bio: "A test bio", Contact: ContactDetails{Twitter: "http://www.twitter.com/ACCCLeicsPolice"}, Name: "Joe Bloggs", Rank: "Assistant Chief Officer (Crime)"}
 	if !reflect.DeepEqual(people[0], expected) {
