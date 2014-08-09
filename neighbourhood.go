@@ -24,7 +24,7 @@ type Link struct {
 
 type Center struct {
 	Latitutde float64 `json:"latitude,string"`
-	Longitude float64 `json:"longitude, string"`
+	Longitude float64 `json:"longitude,string"`
 }
 
 type Locations struct {
