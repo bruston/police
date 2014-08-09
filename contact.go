@@ -19,3 +19,7 @@ type ContactDetails struct {
 	Blog       string `json:"blog"`
 	RSS        string `json:"rss"`
 }
+
+func (c ContactDetails) Map() map[string]string {
+	return structToMap(c)
+}
