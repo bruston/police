@@ -2,6 +2,7 @@ package police
 
 import (
 	"fmt"
+	"strconv"
 )
 
 type Crime struct {
@@ -22,8 +23,8 @@ type CrimeCategory struct {
 }
 
 type Location struct {
-	Latitude  string `json:"latitude"`
-	Longitude string `json:"longitude"`
+	Latitude  float64 `json:"latitude,string"`
+	Longitude float64 `json:"longitude,string"`
 	Street    `json:"street"`
 }
 
@@ -50,7 +51,8 @@ func (c Client) StreetCrime(lat, long float64, date string, category string) ([]
 	if category == "" {
 		category = "all-crime"
 	}
-	url := fmt.Sprintf("crimes-street/%s?lat=%d&lng=%d&date=%s", category, lat, long, date)
+
+	url := fmt.Sprintf("crimes-street/%s?lat=%s&lng=%s&date=%s", category, strconv.FormatFloat(lat, 'f', 6, 64), strconv.FormatFloat(long, 'f', 6, 64), date)
 	var crimes []Crime
 	if err := c.decodeJSONResponse(url, &crimes); err != nil {
 		return nil, err
