@@ -16,6 +16,11 @@ type Crime struct {
 	Outcome         OutcomeStatus `json:"outcome_status"`
 }
 
+type CrimeCategory struct {
+	Slug string `json:"url"`
+	Name string `json:"name"`
+}
+
 type Location struct {
 	Latitude  string `json:"latitude"`
 	Longitude string `json:"longitude"`
@@ -30,6 +35,15 @@ type Street struct {
 type OutcomeStatus struct {
 	Category string `json:"category"`
 	Date     string `json:"date"`
+}
+
+func (c Client) Categories() ([]CrimeCategory, error) {
+	var categories []CrimeCategory
+	err := c.decodeJSONResponse("crime-categories", &categories)
+	if err != nil {
+		return nil, err
+	}
+	return categories, nil
 }
 
 func (c Client) StreetCrime(lat, long float64, date string, category string) ([]Crime, error) {
