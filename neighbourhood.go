@@ -50,7 +50,12 @@ func (c Client) Neighbourhoods(location string) ([]Neighbourhoods, error) {
 }
 
 func (c Client) Neighbourhood(location, id string) (Neighbourhood, error) {
-	return Neighbourhood{}, nil
+	var neighbourhood Neighbourhood
+	err := c.decodeJSONResponse(location+"/"+id, &neighbourhood)
+	if err != nil {
+		return Neighbourhood{}, err
+	}
+	return neighbourhood, nil
 }
 
 func (n Neighbourhoods) Information() (Neighbourhood, error) {
