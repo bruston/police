@@ -1,6 +1,9 @@
 package police
 
-import "reflect"
+import (
+	"reflect"
+	"strings"
+)
 
 // Makes a map[string]string from a structs string fields
 func structToMap(i interface{}) map[string]string {
@@ -14,7 +17,7 @@ func structToMap(i interface{}) map[string]string {
 		}
 		v := field.String()
 		if v != "" {
-			m[t.Field(i).Name] = v
+			m[strings.ToLower(t.Field(i).Name)] = v
 		}
 	}
 	return m
