@@ -28,7 +28,7 @@ func TestGetForces(t *testing.T) {
 	}
 	server := httptest.NewServer(http.HandlerFunc(handler))
 	defer server.Close()
-	p := Client{baseURL: server.URL + "/", Client: http.Client{}, UserAgent: USER_AGENT}
+	p := Client{baseURL: server.URL + "/", HTTPClient: http.Client{}, UserAgent: USER_AGENT}
 	forces, err := p.Forces()
 	if err != nil {
 		t.Error(err)
@@ -75,7 +75,7 @@ func TestGetForce(t *testing.T) {
 	}
 	server := httptest.NewServer(http.HandlerFunc(handler))
 	defer server.Close()
-	p := Client{baseURL: server.URL + "/", Client: http.Client{}, UserAgent: USER_AGENT}
+	p := Client{baseURL: server.URL + "/", HTTPClient: http.Client{}, UserAgent: USER_AGENT}
 	force, err := p.Force("leicestershire")
 	if err != nil {
 		t.Error(err)

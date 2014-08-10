@@ -13,19 +13,19 @@ const (
 )
 
 type Client struct {
-	baseURL   string
-	UserAgent string
-	http.Client
+	baseURL    string
+	UserAgent  string
+	HTTPClient http.Client
 }
 
-func (c *Client) Get(url string) (*http.Response, error) {
+func (c *Client) get(url string) (*http.Response, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if c.UserAgent != "" {
 		req.Header.Add("User-Agent", c.UserAgent)
 	} else {
 		req.Header.Add("User-Agent", USER_AGENT)
 	}
-	resp, err := c.Do(req)
+	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -34,14 +34,14 @@ func (c *Client) Get(url string) (*http.Response, error) {
 
 func NewClient() Client {
 	return Client{
-		baseURL:   API_URL,
-		UserAgent: USER_AGENT,
-		Client:    http.Client{Timeout: time.Second * 10},
+		baseURL:    API_URL,
+		UserAgent:  USER_AGENT,
+		HTTPClient: http.Client{Timeout: time.Second * 10},
 	}
 }
 
 func (c Client) decodeJSONResponse(dst string, target interface{}) error {
-	resp, err := c.Get(c.baseURL + dst)
+	resp, err := c.get(c.baseURL + dst)
 	if err != nil {
 		return fmt.Errorf("unable to connect to API: %s", err)
 	}
