@@ -32,7 +32,7 @@ func (c *Client) get(url string) (*http.Response, error) {
 	return resp, nil
 }
 
-func NewClient() Client {
+func New() Client {
 	return Client{
 		baseURL:    API_URL,
 		UserAgent:  USER_AGENT,
