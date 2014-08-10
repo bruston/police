@@ -1,19 +1,17 @@
 package police
 
-import ()
-
-type Person struct {
+type Officer struct {
 	Bio     string         `json:"bio"`
 	Contact ContactDetails `json:"contact_details"`
 	Name    string         `json:"name"`
 	Rank    string         `json:"rank"`
 }
 
-func (c Client) People(id string) ([]Person, error) {
-	var people []Person
-	err := c.decodeJSONResponse(id+"/people", &people)
+func (c Client) Officers(id string) ([]Officer, error) {
+	var officers []Officer
+	err := c.decodeJSONResponse(id+"/people", &officers)
 	if err != nil {
 		return nil, err
 	}
-	return people, nil
+	return officers, nil
 }

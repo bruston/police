@@ -25,12 +25,12 @@ func TestPeople(t *testing.T) {
 	}
 	server := httptest.NewServer(http.HandlerFunc(handler))
 	p := Client{baseURL: server.URL + "/"}
-	people, err := p.People("leicestershire")
+	officers, err := p.Officers("leicestershire")
 	if err != nil {
 		t.Fatal(err)
 	}
-	expected := Person{Bio: "A test bio", Contact: ContactDetails{Twitter: "http://www.twitter.com/ACCCLeicsPolice"}, Name: "Joe Bloggs", Rank: "Assistant Chief Officer (Crime)"}
-	if !reflect.DeepEqual(people[0], expected) {
-		t.Errorf("expecting %v, got %v instead", expected, people[0])
+	expected := Officer{Bio: "A test bio", Contact: ContactDetails{Twitter: "http://www.twitter.com/ACCCLeicsPolice"}, Name: "Joe Bloggs", Rank: "Assistant Chief Officer (Crime)"}
+	if !reflect.DeepEqual(officers[0], expected) {
+		t.Errorf("expecting %v, got %v instead", expected, officers[0])
 	}
 }
