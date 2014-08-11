@@ -33,8 +33,8 @@ forces, err := p.Forces()
 if err != nil {
 	// Handle errors
 }
-for _, forces := range forces {
-	fmt.Printf("ID: %d - Name: %s.\n", forces.ID, forces.Name)
+for _, force := range forces {
+	fmt.Printf("ID: %d - Name: %s.\n", force.ID, force.Name)
 }
 ```
 
