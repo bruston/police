@@ -1,6 +1,6 @@
 # Police
 
-Police is a Go package that interacts with the REST API for http://data.police.uk which is documented [here](http://http://data.police.uk/docs/).
+Police is a Go package that interacts with the REST API for http://data.police.uk which is documented [here](http://data.police.uk/docs/).
 
 ## Requirements
 - Go 1.3
