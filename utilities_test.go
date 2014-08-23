@@ -1,9 +1,22 @@
 package police
 
 import (
+	"net/http"
+	"net/http/httptest"
 	"reflect"
 	"testing"
 )
+
+func newDummyServer(body []byte, statusCode int) *httptest.Server {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-type", "Application/json")
+		if statusCode != http.StatusOK {
+			w.WriteHeader(statusCode)
+		}
+		w.Write(body)
+	}
+	return httptest.NewServer(http.HandlerFunc(handler))
+}
 
 func TestStructToMap(t *testing.T) {
 	var s struct {
@@ -20,6 +33,6 @@ func TestStructToMap(t *testing.T) {
 	expected := map[string]string{"field1": "apple", "field2": "orange", "field3": "pear"}
 	result := structToMap(s)
 	if !reflect.DeepEqual(expected, result) {
-		t.Errorf("expecting %v, got %v", expected, result)
+		t.Errorf("expecting %#v, got %#v", expected, result)
 	}
 }

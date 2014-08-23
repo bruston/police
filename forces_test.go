@@ -2,7 +2,6 @@ package police
 
 import (
 	"net/http"
-	"net/http/httptest"
 	"testing"
 )
 
@@ -22,11 +21,7 @@ var forcesBody = []byte(`[
 ]`)
 
 func TestGetForces(t *testing.T) {
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-type", "Application/json")
-		w.Write(forcesBody)
-	}
-	server := httptest.NewServer(http.HandlerFunc(handler))
+	server := newDummyServer(forcesBody, 200)
 	defer server.Close()
 	p := Client{baseURL: server.URL + "/", HTTPClient: http.Client{}, UserAgent: USER_AGENT}
 	forces, err := p.Forces()
@@ -69,11 +64,7 @@ var forceBody = []byte(`{
 }`)
 
 func TestGetForce(t *testing.T) {
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-type", "Application/json")
-		w.Write(forceBody)
-	}
-	server := httptest.NewServer(http.HandlerFunc(handler))
+	server := newDummyServer(forceBody, 200)
 	defer server.Close()
 	p := Client{baseURL: server.URL + "/", HTTPClient: http.Client{}, UserAgent: USER_AGENT}
 	force, err := p.Force("leicestershire")

@@ -1,8 +1,6 @@
 package police
 
 import (
-	"net/http"
-	"net/http/httptest"
 	"reflect"
 	"testing"
 )
@@ -74,11 +72,7 @@ var crimeBody = []byte(`[
 ]`)
 
 func TestCrimesCoord(t *testing.T) {
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-type", "Application/json")
-		w.Write(crimeBody)
-	}
-	server := httptest.NewServer(http.HandlerFunc(handler))
+	server := newDummyServer(crimeBody, 200)
 	p := Client{baseURL: server.URL + "/"}
 	crimes, err := p.StreetCrime(100.333, -100.344, "", "")
 	if err != nil {
@@ -105,6 +99,6 @@ func TestCrimesCoord(t *testing.T) {
 		PersistentID: "891c558265735c6e8a396d9e6a22ba641b26cff9201d24da322b5c487f22a08b",
 	}
 	if !reflect.DeepEqual(crimes[2], expected) {
-		t.Errorf("expecting %v, got %v instead", expected, crimes[2])
+		t.Errorf("expecting %#v, got %#v instead", expected, crimes[2])
 	}
 }
