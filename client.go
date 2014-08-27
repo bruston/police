@@ -18,6 +18,12 @@ type Client struct {
 	HTTPClient http.Client
 }
 
+type APIError int
+
+func (e APIError) Error() string {
+	return fmt.Sprintf("API returned status code: %d", e)
+}
+
 func (c *Client) get(url string) (*http.Response, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if c.UserAgent != "" {
