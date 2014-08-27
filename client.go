@@ -49,14 +49,14 @@ func New() Client {
 func (c Client) decodeJSONResponse(dst string, target interface{}) error {
 	resp, err := c.get(c.baseURL + dst)
 	if err != nil {
-		return fmt.Errorf("unable to connect to API: %s", err)
+		return err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("API returned status code: %d", resp.StatusCode)
+		return APIError(resp.StatusCode)
 	}
 	if err = json.NewDecoder(resp.Body).Decode(&target); err != nil {
-		return fmt.Errorf("unable to unmarshal JSON response: %s", err)
+		return err
 	}
 	return nil
 }
