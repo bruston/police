@@ -10,9 +10,7 @@ import (
 func newDummyServer(body []byte, statusCode int) *httptest.Server {
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "Application/json")
-		if statusCode != http.StatusOK {
-			w.WriteHeader(statusCode)
-		}
+		w.WriteHeader(statusCode)
 		w.Write(body)
 	}
 	return httptest.NewServer(http.HandlerFunc(handler))
