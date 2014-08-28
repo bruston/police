@@ -73,6 +73,7 @@ var crimeBody = []byte(`[
 
 func TestCrimesCoord(t *testing.T) {
 	server := newDummyServer(crimeBody, 200)
+	defer server.Close()
 	p := Client{baseURL: server.URL + "/"}
 	crimes, err := p.StreetCrime(100.333, -100.344, "", "")
 	if err != nil {
