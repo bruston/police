@@ -7,13 +7,24 @@ import (
 	"testing"
 )
 
-func newDummyServer(body []byte, statusCode int) *httptest.Server {
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-type", "Application/json")
-		w.WriteHeader(statusCode)
-		w.Write(body)
-	}
-	return httptest.NewServer(http.HandlerFunc(handler))
+type dummyAPI struct {
+	statusCode  int
+	body        []byte
+	lastRequest *http.Request
+	*httptest.Server
+}
+
+func (d *dummyAPI) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "Application/json")
+	w.WriteHeader(d.statusCode)
+	w.Write(d.body)
+	d.lastRequest = r
+}
+
+func newDummyServer(body []byte, statusCode int) *dummyAPI {
+	s := dummyAPI{statusCode: statusCode, body: body}
+	s.Server = httptest.NewServer(&s)
+	return &s
 }
 
 func TestStructToMap(t *testing.T) {
