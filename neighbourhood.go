@@ -40,7 +40,7 @@ type Locations struct {
 
 func (c Client) Neighbourhoods(location string) ([]Neighbourhoods, error) {
 	var neighbourhoods []Neighbourhoods
-	err := c.decodeJSONResponse(location+"/neighbourhoods", &neighbourhoods)
+	err := c.decodeJSONResponse("GET", location+"/neighbourhoods", &neighbourhoods)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (c Client) Neighbourhoods(location string) ([]Neighbourhoods, error) {
 
 func (c Client) Neighbourhood(location, id string) (Neighbourhood, error) {
 	var neighbourhood Neighbourhood
-	err := c.decodeJSONResponse(location+"/"+id, &neighbourhood)
+	err := c.decodeJSONResponse("GET", location+"/"+id, &neighbourhood)
 	if err != nil {
 		return Neighbourhood{}, err
 	}

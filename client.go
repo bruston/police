@@ -24,18 +24,17 @@ func (e APIError) Error() string {
 	return fmt.Sprintf("API returned status code: %d", e)
 }
 
-func (c *Client) get(url string) (*http.Response, error) {
-	req, err := http.NewRequest("GET", url, nil)
+func (c Client) doRequest(method, dst string) (*http.Response, error) {
+	req, err := http.NewRequest(method, dst, nil)
+	if err != nil {
+		return nil, err
+	}
 	if c.UserAgent != "" {
 		req.Header.Add("User-Agent", c.UserAgent)
 	} else {
 		req.Header.Add("User-Agent", USER_AGENT)
 	}
-	resp, err := c.HTTPClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
+	return c.HTTPClient.Do(req)
 }
 
 func New() Client {
@@ -46,8 +45,8 @@ func New() Client {
 	}
 }
 
-func (c Client) decodeJSONResponse(dst string, target interface{}) error {
-	resp, err := c.get(c.baseURL + dst)
+func (c Client) decodeJSONResponse(method, dst string, target interface{}) error {
+	resp, err := c.doRequest(method, c.baseURL+dst)
 	if err != nil {
 		return err
 	}

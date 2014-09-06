@@ -9,7 +9,7 @@ type Officer struct {
 
 func (c Client) Officers(id string) ([]Officer, error) {
 	var officers []Officer
-	err := c.decodeJSONResponse("/forces/"+id+"/people", &officers)
+	err := c.decodeJSONResponse("GET", "/forces/"+id+"/people", &officers)
 	if err != nil {
 		return nil, err
 	}

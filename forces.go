@@ -1,7 +1,5 @@
 package police
 
-import ()
-
 type Forces struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
@@ -28,7 +26,7 @@ func (f Force) Engagement() []EngagementMethod {
 
 func (c Client) Forces() ([]Forces, error) {
 	var forces []Forces
-	err := c.decodeJSONResponse("forces", &forces)
+	err := c.decodeJSONResponse("GET", "forces", &forces)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +35,7 @@ func (c Client) Forces() ([]Forces, error) {
 
 func (c Client) Force(id string) (Force, error) {
 	var force Force
-	err := c.decodeJSONResponse("forces/"+id, &force)
+	err := c.decodeJSONResponse("GET", "forces/"+id, &force)
 	if err != nil {
 		return Force{}, err
 	}
