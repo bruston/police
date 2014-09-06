@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-var peopleBody = []byte(`[
+var body = []byte(`[
     {
         "bio": "A test bio",
         "contact_details": {
@@ -16,8 +16,8 @@ var peopleBody = []byte(`[
     }
 ]`)
 
-func TestPeople(t *testing.T) {
-	server := newDummyServer(peopleBody, 200)
+func TestOfficers(t *testing.T) {
+	server := newDummyServer(body, 200)
 	defer server.Close()
 	p := Client{baseURL: server.URL + "/"}
 	officers, err := p.Officers("leicestershire")
