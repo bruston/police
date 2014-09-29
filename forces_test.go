@@ -1,9 +1,6 @@
 package police
 
-import (
-	"net/http"
-	"testing"
-)
+import "testing"
 
 var forcesBody = []byte(`[
     {
@@ -23,7 +20,7 @@ var forcesBody = []byte(`[
 func TestGetForces(t *testing.T) {
 	server := newDummyServer(forcesBody, 200)
 	defer server.Close()
-	p := Client{baseURL: server.URL + "/", HTTPClient: http.Client{}, UserAgent: USER_AGENT}
+	p := newTestClient(server.URL)
 	forces, err := p.Forces()
 	if err != nil {
 		t.Error(err)
@@ -66,7 +63,7 @@ var forceBody = []byte(`{
 func TestGetForce(t *testing.T) {
 	server := newDummyServer(forceBody, 200)
 	defer server.Close()
-	p := Client{baseURL: server.URL + "/", HTTPClient: http.Client{}, UserAgent: USER_AGENT}
+	p := newTestClient(server.URL)
 	force, err := p.Force("leicestershire")
 	if err != nil {
 		t.Error(err)

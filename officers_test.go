@@ -19,7 +19,7 @@ var body = []byte(`[
 func TestOfficers(t *testing.T) {
 	server := newDummyServer(body, 200)
 	defer server.Close()
-	p := Client{baseURL: server.URL + "/"}
+	p := newTestClient(server.URL)
 	officers, err := p.Officers("leicestershire")
 	if err != nil {
 		t.Fatal(err)
