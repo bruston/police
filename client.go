@@ -13,7 +13,7 @@ const (
 )
 
 type Client struct {
-	baseURL    string
+	BaseURL    string
 	UserAgent  string
 	HTTPClient http.Client
 }
@@ -39,14 +39,14 @@ func (c Client) doRequest(method, dst string) (*http.Response, error) {
 
 func New() Client {
 	return Client{
-		baseURL:    API_URL,
+		BaseURL:    API_URL,
 		UserAgent:  USER_AGENT,
 		HTTPClient: http.Client{Timeout: time.Second * 10},
 	}
 }
 
 func (c Client) decodeJSONResponse(method, dst string, target interface{}) error {
-	resp, err := c.doRequest(method, c.baseURL+dst)
+	resp, err := c.doRequest(method, c.BaseURL+dst)
 	if err != nil {
 		return err
 	}
