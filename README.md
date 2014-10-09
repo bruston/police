@@ -60,6 +60,18 @@ for _, officer := range officers {
 }
 ```
 
+## Getting A List Of Crime Categories
+
+```Go
+categories, err := p.Categories()
+if err != nil {
+	// Handle errors
+}
+for _, category := range categories {
+	fmt.Printf("ID: %s - Category: %s\n", category.ID, category.Name)
+}
+```
+
 ## Getting Street Level Crimes For A Specific Point
 
 To retrieve a list of street level crimes within a one mile radius of a specific point call the `StreetCrime` method.
