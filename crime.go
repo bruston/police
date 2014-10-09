@@ -19,7 +19,7 @@ type Crime struct {
 }
 
 type CrimeCategory struct {
-	Slug string `json:"url"`
+	ID   string `json:"url"`
 	Name string `json:"name"`
 }
 

@@ -71,7 +71,7 @@ To retrieve a list of street level crimes within a one mile radius of a specific
 - date string (YYYY-MM format)
 - category string
 
-If no date is specified, the latest data is returned. If no category is specified, all categories are returned.
+If no date is specified, the latest data is returned. If no category ID is specified, all categories are returned.
 
 ```Go
 crimes, err := p.StreetCrime(52.629729, -1.131592, "2013-01", "")
