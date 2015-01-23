@@ -34,7 +34,7 @@ if err != nil {
 	// Handle errors
 }
 for _, force := range forces {
-	fmt.Printf("ID: %d - Name: %s.\n", force.ID, force.Name)
+	fmt.Printf("ID: %s - Name: %s.\n", force.ID, force.Name)
 }
 ```
 
