@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 const (
@@ -13,9 +12,9 @@ const (
 )
 
 type Client struct {
-	BaseURL    string
-	UserAgent  string
-	HTTPClient http.Client
+	BaseURL   string
+	UserAgent string
+	*http.Client
 }
 
 type APIError int
@@ -34,14 +33,14 @@ func (c Client) doRequest(method, dst string) (*http.Response, error) {
 	} else {
 		req.Header.Add("User-Agent", USER_AGENT)
 	}
-	return c.HTTPClient.Do(req)
+	return c.Do(req)
 }
 
 func New() Client {
 	return Client{
-		BaseURL:    API_URL,
-		UserAgent:  USER_AGENT,
-		HTTPClient: http.Client{Timeout: time.Second * 10},
+		BaseURL:   API_URL,
+		UserAgent: USER_AGENT,
+		Client:    http.DefaultClient,
 	}
 }
 
