@@ -1,5 +1,7 @@
 # Police
 
+[![Build Status](https://travis-ci.org/bruston/police.svg?branch=master)](https://travis-ci.org/bruston/police)
+
 Police is a Go package that interacts with the REST API for http://data.police.uk which is documented [here](http://data.police.uk/docs/).
 
 ## Requirements
