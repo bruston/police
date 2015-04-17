@@ -28,7 +28,7 @@ func newDummyServer(body []byte, statusCode int) *dummyAPI {
 }
 
 func newTestClient(baseURL string) Client {
-	return Client{BaseURL: baseURL + "/", Client: http.DefaultClient}
+	return Client{BaseURL: baseURL + "/", HTTPClient: http.DefaultClient}
 }
 
 func TestStructToMap(t *testing.T) {

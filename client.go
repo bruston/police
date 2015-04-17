@@ -12,9 +12,9 @@ const (
 )
 
 type Client struct {
-	BaseURL   string
-	UserAgent string
-	*http.Client
+	BaseURL    string
+	UserAgent  string
+	HTTPClient *http.Client
 }
 
 type APIError int
@@ -33,14 +33,14 @@ func (c Client) doRequest(method, dst string) (*http.Response, error) {
 	} else {
 		req.Header.Add("User-Agent", USER_AGENT)
 	}
-	return c.Do(req)
+	return c.HTTPClient.Do(req)
 }
 
 func New() Client {
 	return Client{
-		BaseURL:   API_URL,
-		UserAgent: USER_AGENT,
-		Client:    http.DefaultClient,
+		BaseURL:    API_URL,
+		UserAgent:  USER_AGENT,
+		HTTPClient: http.DefaultClient,
 	}
 }
 
